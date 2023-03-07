@@ -1,0 +1,366 @@
+# Basics of Data Types and Operations in Elixir
+
+```elixir
+Mix.install([
+  {:jason, "~> 1.4"},
+  {:kino, "~> 0.8.0", override: true},
+  {:youtube, github: "brooklinjazz/youtube"},
+  {:hidden_cell, github: "brooklinjazz/hidden_cell"}
+])
+```
+
+## Data Types
+
+* Integer.
+* Floats.
+* Booleans.
+* Strings.
+* Atoms.
+
+---
+
+* Comments  *Oops! i'm not a Data Types* 😅
+* IO        *Yeah! me too* 🥲
+
+## Operations
+
+* Arithmetic Operations.
+* String Operators.
+* Booleans Operators.
+* Comparison Operators.
+* Match Operator.
+
+## integers :
+
+an integer is a whole number that does not have a fractional part. Integers in Elixir can be either positive or negative, and there is no limit to how large or small an integer can be.
+
+```mermaid
+flowchart LR
+-Infinity-->  -3 --> -2 --> -1 --> 0 --> 1 --> 2 --> 3 -->  6[+Infinity]
+```
+
+<!-- livebook:{"break_markdown":true} -->
+
+![](images/Screenshot_20230223_061821.png)
+
+## Floats :
+
+a float is a **data type** that represents a decimal number.
+
+Floats are useful when you need to represent numbers that have a fractional component.
+
+```elixir
+3.14
+```
+
+You can perform arithmetic operations on floats just like you can with integers:
+
+```elixir
+0.1 + 0.3
+```
+
+```elixir
+0.1 + 0.2
+```
+
+It's important to keep in mind that floats can have rounding errors due to the way they are represented internally. This can sometimes lead to unexpected results when performing calculations with floats.
+
+## Booleans :
+
+Booleans are a data type in Elixir that represent either true or false values.
+
+In Elixir, the two boolean values are represented by the atoms `true` and `false`. You can use booleans to represent the results of comparisons, logical operations, and other conditions.
+
+```elixir
+true === true
+false === false
+```
+
+## Strings :
+
+In Elixir, strings are sequences of characters enclosed in `""` double quotes, like this:
+
+<!-- livebook:{"break_markdown":true} -->
+
+![](images/Screenshot_20230223_092254.png)
+
+```elixir
+"12234"
+"@!$%$%"
+```
+
+You can also use single quotes to define a string, but the difference is that single-quoted strings are actually lists of integers that represent the ASCII ( American Standard Code for Information Interchange) values of the characters,
+
+whereas double-quoted strings are binaries that store the characters as Unicode codepoints.
+
+```elixir
+?b
+```
+
+**Multiline String :**
+
+A multiline string is a string that spans across multiple lines of code. In Elixir, you can create multiline strings using triple quotes `"""`.
+
+```elixir
+message = """
+ Hello,
+ World!
+"""
+
+IO.puts(message)
+```
+
+The resulting string includes newline characters `\n` at the end of each line.
+
+## Atoms :
+
+An atom is a constant value that represents a unique, symbolic name. Atoms in Elixir are written as a sequence of characters starting with a colon `:`
+
+```elixir
+:Naruto
+```
+
+---
+
+## Comments :
+
+Comments in Elixir are used to add human-readable explanations to code.
+
+Comments are ignored by the Elixir compiler and have no effect on the execution of the code. Comments are a way for developers to document their code and make it easier for other developers to understand.
+
+```elixir
+# Single-line comments start with the "#" character and continue until the end of the line...
+```
+
+Comments are an important part of writing readable, maintainable code, and it's a good practice to use comments to explain complex or confusing parts of your code.
+
+## IO module
+
+`IO` stands for **input/output**.
+
+It provides a way to interact with the console (standard input and standard output). It's used for printing output to the console and for reading input from the console.
+
+* `IO.gets/1` function to read a line of input from the console
+* `IO.puts/1` function to print the string to the console
+* `IO.inspect/1` Is used for debugging and inspection
+
+<!-- livebook:{"break_markdown":true} -->
+
+![](images/Screenshot_20230226_043059.png)
+
+```elixir
+IO.puts("hello world")
+IO.inspect(1, label: "number")
+```
+
+---
+
+## Arithmetic Operations :
+
+Arithmetic operations in Elixir are used to perform mathematical calculations on numeric values.
+
+* `+` : addition
+* `-` : subtraction
+* `*` : multiplication
+* `/` : division
+
+```elixir
+10 + 5
+10 - 5
+10 * 5
+10 / 5
+```
+
+When we use the `/` operator, the result is a float, even if both operands are integers.
+
+Elixir also provides the following operators:
+
+* `div/2` integer division (returns the result of dividing two integers and rounding down to the nearest integer)
+* `rem/2` remainder (returns the remainder of dividing two integers)
+
+```elixir
+10 / 3
+div(10, 3)
+rem(10, 3)
+```
+
+**Exponents :** Exponentiation is a mathematical operation that involves raising a number to a power.
+
+you can perform exponentiation using the `:math.pow/2` function or the `**` operator.
+
+```elixir
+10 ** 2
+:math.pow(10, 2)
+```
+
+Exponentiation can be useful in a variety of situations, such as when calculating compound interest, modeling growth rates, or performing scientific calculations.
+
+## String Operators :
+
+**String concatenation :**  the process of combining two or more strings into a single string.
+
+You can use the `<>` operator to concatenate strings.
+
+```elixir
+greeting = "Hey!, "
+name = "Doremon"
+message = greeting <> name
+```
+
+String concatenation can be useful in a variety of situations, such as building dynamic messages or constructing file paths.
+
+<!-- livebook:{"break_markdown":true} -->
+
+**String Interpolation :** String interpolation is a way to insert variable values into a string. In Elixir, you can interpolate variables into a string using the `#{}` syntax.
+
+```elixir
+name = "Doremen"
+" please! #{name} give me #{1 + 1} Dora cake... 😋👉👈"
+```
+
+String interpolation can be a powerful tool for building strings dynamically based on the values of variables or the results of calculations.
+
+<!-- livebook:{"break_markdown":true} -->
+
+**Escaping Characters :** we can use a backslash `\` followed by a special character to insert that character into a string. These special characters are called "escape characters".
+
+* `\n` - inserts a newline character
+* `\r` - inserts a carriage return character
+* `\t` - inserts a tab character
+* `\"` - inserts a double quote character
+* `\'` - inserts a single quote character
+* `\\` - inserts a backslash character
+
+```elixir
+IO.puts("\u00A2")
+IO.puts("line 1\nline 2\n")
+IO.puts("hello\r world")
+# IO.puts("hello\t world")
+# IO.puts("\"You're beautiful, it's true\"")
+# IO.puts("how\'s doing man! ")
+# IO.puts("2\\2")
+```
+
+Escape characters are a useful way to insert special characters into strings that would otherwise be difficult or impossible to represent directly.
+
+## Booleans Operators :
+
+Boolean operators are commonly used in conditionals and control structures in Elixir  
+that operate boolean values (`true` or `false`).
+
+There are three boolean operators: `and`, `or`, and `not`.
+
+**and :**
+The `and` operator returns `true`  if both operands are `true`, and `false` otherwise. Here's an example:
+
+```elixir
+true and true
+
+# true and false
+
+# false and true
+
+# false and false
+```
+
+we're using the `and` operator to combine boolean values. The result is `true` only if both operands are `true`.
+
+**or :** The or operator returns true if at least one operand is true, and false otherwise. Here's an example:
+
+```elixir
+true or true
+
+# true or false
+
+# false or true
+
+# false or false
+```
+
+we're using the `or` operator to combine boolean values. The result is `true` if at least one operand is `true`.
+
+**not :** The `not` operator returns the opposite of a boolean value. If the operand is `true`, the result is `false`, and if the operand is `false`, the result is `true`. Here's an example:
+
+```elixir
+not true
+# not false
+```
+
+`&&` : Returns the right-hand side value if the left-hand side value is truthy.
+
+```elixir
+1 && 2
+```
+
+Returns the left-hand side value if it is falsy.
+
+```elixir
+nil && false
+```
+
+`||` : Returns the first truthy value on either the left-hand side or the right-hand side.
+
+```elixir
+1 || nil
+
+# 1 || 2
+```
+
+`!` : Flips truthy -> `false` and falsy -> `true`.
+
+```elixir
+!true
+# !false
+```
+
+## Comparison Operators :
+
+Comparison operators are used to compare values and determine whether they are equal, greater than, less than, etc. In Elixir, the most common comparison operators are:
+
+* `==` Equal to
+* `!=` Not equal to
+* `>` Greater than
+* `<` Less than
+* `>=` Greater than or equal to
+* `<=` Less than or equal to
+
+```elixir
+1 == 1
+"hello" == "hello"
+1 != 2
+"hello" != 2
+2 > 1
+"a" > "A"
+1 < 2
+"a" < "z"
+3 >= 2
+"a" >= "Z"
+2 <= 3
+"a" <= "z"
+```
+
+Strict operators in Elixir are represented by `===` and `!==`. These operators not only check for equality of values, but also check for equality of types.
+
+```elixir
+1 === 1
+1 === 1.0
+# false !== true
+```
+
+## Match Operator :
+
+The match operator  `=` is used to match and bind values in Elixir. The basic syntax of the match operator is:
+
+`pattern` = `expression`
+
+`pattern` is a pattern that we want to match against the value of `expression`. If the pattern matches the expression, the value of the expression is bound to the pattern. If the pattern does not match the expression, an error is raised.
+
+```elixir
+x = 5
+
+5 = x
+
+10 = x
+```
+
+The match operator can be used in a variety of situations, such as in `function arguments`, pattern matching on `tuples` and `maps`, and in control flow structures like `case` and `cond`.
